@@ -1,9 +1,8 @@
-ARG TARGET_TAG
-FROM ubuntu:${TARGET_TAG}
+FROM ubuntu:focal
 
 ENV DEBIAN_FRONTEND=noninteractive
 ENV APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE=1
-ARG TARGETARCH
+
 
 ####################
 # Upgrade
@@ -40,7 +39,7 @@ RUN apt-get update \
     && apt-get install -y \
         libxt6 \
         x11-xkb-utils \
-    && wget -O turbovnc.deb https://jaist.dl.sourceforge.net/project/turbovnc/3.0/turbovnc_3.0_${TARGETARCH}.deb \
+    && wget -O turbovnc.deb https://jaist.dl.sourceforge.net/project/turbovnc/3.0/turbovnc_3.0_amd64.deb \
     && dpkg -i turbovnc.deb \
     && apt-get install -f -y \
     && rm -rf turbovnc.deb
