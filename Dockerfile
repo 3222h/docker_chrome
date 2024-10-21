@@ -24,10 +24,10 @@ RUN apt-get update -q \
     && rm -rf /var/lib/apt/lists/*
 
 ####################
-# Install filemanager
+# Install filemanager and terminal
 ####################
 RUN apt-get update \
-    && apt-get install -y pcmanfm \
+    && apt-get install -y pcmanfm lxterminal \
     && apt-get autoclean \
     && apt-get autoremove \
     && rm -rf /var/lib/apt/lists/*    
@@ -41,6 +41,7 @@ RUN apt-get update \
     && apt-get autoclean \
     && apt-get autoremove \
     && rm -rf /var/lib/apt/lists/*
+    
 ####################
 # Install TurboVNC and Dependencies
 ####################
