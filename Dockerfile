@@ -3,7 +3,6 @@ FROM ubuntu:focal
 ENV DEBIAN_FRONTEND=noninteractive
 ENV APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE=1
 
-
 ####################
 # Upgrade
 ####################
@@ -54,7 +53,6 @@ RUN apt-get update \
     && apt-get install -f -y \
     && rm -rf turbovnc.deb
 
-
 ####################
 # Install Chrome
 ####################
@@ -77,6 +75,13 @@ RUN mkdir -p /home/$USER/.vnc \
     && chown -R $USER:$USER /home/$USER
 
 ####################
+# Create Autostart Configuration
+####################
+RUN mkdir -p /home/$USER/.config/openbox \
+    && echo 'google-chrome --no-sandbox &' > /home/$USER/.config/openbox/autostart \
+    && chown -R $USER:$USER /home/$USER/.config
+
+####################
 # noVNC and Websockify
 ####################
 RUN git clone https://github.com/AtsushiSaito/noVNC.git -b add_clipboard_support /usr/lib/novnc
@@ -95,7 +100,6 @@ RUN if [ -f /etc/default/apport ]; then \
         sed -i 's/enabled=1/enabled=0/g' /etc/default/apport; \
     fi
 
-
 ####################
 # Supervisor Configuration
 ####################
@@ -107,7 +111,5 @@ RUN echo '[supervisord]' >> $CONF_PATH \
     && echo 'command=gosu '$USER' /opt/TurboVNC/bin/vncserver :0 -fg -wm openbox -geometry 1366x667 -depth 24' >> $CONF_PATH \
     && echo '[program:novnc]' >> $CONF_PATH \
     && echo 'command=gosu '$USER' bash -c "websockify --web=/usr/lib/novnc 3000 localhost:5900"' >> $CONF_PATH
-
-    
 
 CMD ["bash", "-c", "supervisord -c $CONF_PATH"]
