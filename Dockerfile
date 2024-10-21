@@ -39,7 +39,7 @@ RUN apt-get update \
         supervisor wget gosu git sudo python3-pip \
     && apt-get autoclean \
     && apt-get autoremove \
-    && rm -rf /var/lib/apt/lists/*
+    && rm -rf /var/lib/apt/lists*
     
 ####################
 # Install TurboVNC and Dependencies
@@ -75,10 +75,20 @@ RUN mkdir -p /home/$USER/.vnc \
     && chown -R $USER:$USER /home/$USER
 
 ####################
+# Create Start Chrome Script
+####################
+RUN echo '#!/bin/bash' > /home/$USER/start_chrome.sh \
+    && echo 'while true; do' >> /home/$USER/start_chrome.sh \
+    && echo '    google-chrome' >> /home/$USER/start_chrome.sh \
+    && echo '    sleep 2' >> /home/$USER/start_chrome.sh \
+    && echo 'done' >> /home/$USER/start_chrome.sh \
+    && chmod +x /home/$USER/start_chrome.sh
+
+####################
 # Create Autostart Configuration
 ####################
 RUN mkdir -p /home/$USER/.config/openbox \
-    && echo 'google-chrome --no-sandbox &' > /home/$USER/.config/openbox/autostart \
+    && echo '/home/ubuntu/start_chrome.sh &' > /home/$USER/.config/openbox/autostart \
     && chown -R $USER:$USER /home/$USER/.config
 
 ####################
