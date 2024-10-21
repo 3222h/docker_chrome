@@ -24,6 +24,15 @@ RUN apt-get update -q \
     && rm -rf /var/lib/apt/lists/*
 
 ####################
+# Install filemanager
+####################
+RUN apt-get update \
+    && apt-get install -y pcmanfm \
+    && apt-get autoclean \
+    && apt-get autoremove \
+    && rm -rf /var/lib/apt/lists/*    
+
+####################
 # Add Package
 ####################
 RUN apt-get update \
