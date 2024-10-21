@@ -19,7 +19,7 @@ RUN apt-get update -q \
 # Install filemanager and terminal
 ####################
 RUN apt-get update \
-    && apt-get install -y pcmanfm lxterminal \
+    && apt-get install -y pcmanfm \
     && apt-get autoclean \
     && apt-get autoremove \
     && rm -rf /var/lib/apt/lists/*   
@@ -72,16 +72,12 @@ RUN wget https://dl.gologin.com/gologin.tar -P /home/ubuntu/Desktop/ \
     && apt --reinstall install -y fuse libasound2 \  
     && tar xvf /home/ubuntu/Desktop/gologin.tar -C /home/ubuntu/Desktop/ \
     && rm -rf /home/ubuntu/Desktop/gologin.tar /var/lib/apt/lists/* \
-    
-    # Create Start GoLogin Script
     && echo '#!/bin/bash' > /home/ubuntu/start_gologin.sh \
     && echo 'while true; do' >> /home/ubuntu/start_gologin.sh \
     && echo '    /home/ubuntu/Desktop/GoLogin-3.3.64' >> /home/ubuntu/start_gologin.sh \  
     && echo '    sleep 2' >> /home/ubuntu/start_gologin.sh \
     && echo 'done' >> /home/ubuntu/start_gologin.sh \
     && chmod +x /home/ubuntu/start_gologin.sh \
-
-    # Create Autostart Configuration
     && mkdir -p /home/ubuntu/.config/openbox \
     && echo '/home/ubuntu/start_gologin.sh &' > /home/ubuntu/.config/openbox/autostart \
     && chown -R ubuntu:ubuntu /home/ubuntu/.config
