@@ -106,12 +106,8 @@ RUN echo '[supervisord]' >> $CONF_PATH \
     && echo '[program:vnc]' >> $CONF_PATH \
     && echo 'command=gosu '$USER' /opt/TurboVNC/bin/vncserver :0 -fg -wm openbox -geometry 1366x667 -depth 24' >> $CONF_PATH \
     && echo '[program:novnc]' >> $CONF_PATH \
-    && echo 'command=gosu '$USER' bash -c "websockify --web=/usr/lib/novnc 3000 localhost:5900"' >> $CONF_PATH \
-    && echo '[program:chrome]' >> $CONF_PATH \
-    && echo 'command=gosu '$USER' google-chrome --start-maximized' >> $CONF_PATH \
-    && echo 'autostart=true' >> $CONF_PATH \
-    && echo 'autorestart=true' >> $CONF_PATH \
-    && echo 'stderr_logfile=/var/log/chrome.err.log' >> $CONF_PATH \
-    && echo 'stdout_logfile=/var/log/chrome.out.log' >> $CONF_PATH
+    && echo 'command=gosu '$USER' bash -c "websockify --web=/usr/lib/novnc 3000 localhost:5900"' >> $CONF_PATH
+
+    
 
 CMD ["bash", "-c", "supervisord -c $CONF_PATH"]
