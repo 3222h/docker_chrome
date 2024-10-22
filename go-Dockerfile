@@ -10,7 +10,7 @@ ENV APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE=1
 ####################
 RUN apt-get update -q \
     && apt-get install -y \
-        openbox \
+        openbox tint2 \
     && apt-get autoclean \
     && apt-get autoremove \
     && rm -rf /var/lib/apt/lists/*
