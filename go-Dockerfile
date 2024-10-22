@@ -61,24 +61,29 @@ RUN mkdir -p /home/$USER/.vnc \
     && chown -R $USER:$USER /home/$USER
 
 ####################
-# Add GoLogin
+# Add GoLogin and Combined Autostart
 ####################
+# Download and install GoLogin
 RUN wget https://dl.gologin.com/gologin.tar -P /home/ubuntu/Desktop/ \
     && apt update \
-    && apt --reinstall install -y fuse libasound2 \
+    && apt --reinstall install -y fuse libasound2 dbus libsecret-1-0 libgbm1 \
     && tar xvf /home/ubuntu/Desktop/gologin.tar -C /home/ubuntu/Desktop/ \
-    && rm -rf /home/ubuntu/Desktop/gologin.tar /var/lib/apt/lists/* \
-    && echo '#!/bin/bash' > /home/ubuntu/start_gologin.sh \
-    && echo 'while true; do' >> /home/ubuntu/start_gologin.sh \
-    && echo '    /home/ubuntu/Desktop/GoLogin-3.3.64' >> /home/ubuntu/start_gologin.sh \
-    && echo '    if [ $? -ne 0 ]; then' >> /home/ubuntu/start_gologin.sh \
-    && echo '        echo "GoLogin closed. Restarting...";' >> /home/ubuntu/start_gologin.sh \
-    && echo '    fi' >> /home/ubuntu/start_gologin.sh \
-    && echo 'done' >> /home/ubuntu/start_gologin.sh \
-    && chmod +x /home/ubuntu/start_gologin.sh \
-    && mkdir -p /home/ubuntu/.config/openbox \
-    && echo '/home/ubuntu/start_gologin.sh &' > /home/ubuntu/.config/openbox/autostart \
+    && rm -rf /home/ubuntu/Desktop/gologin.tar /var/lib/apt/lists/*
+
+# Create the combined start script
+RUN echo '#!/bin/bash' > /home/ubuntu/start_combined.sh \
+    && echo 'tint2 &' >> /home/ubuntu/start_combined.sh \
+    && echo 'while true; do' >> /home/ubuntu/start_combined.sh \
+    && echo '    /home/ubuntu/Desktop/GoLogin-3.3.64' >> /home/ubuntu/start_combined.sh \
+    && echo '    sleep 2' >> /home/ubuntu/start_combined.sh \
+    && echo 'done' >> /home/ubuntu/start_combined.sh \
+    && chmod +x /home/ubuntu/start_combined.sh
+
+# Set the autostart script for Openbox
+RUN mkdir -p /home/ubuntu/.config/openbox \
+    && echo '/home/ubuntu/start_combined.sh &' > /home/ubuntu/.config/openbox/autostart \
     && chown -R ubuntu:ubuntu /home/ubuntu/.config
+
 
 
 ####################
