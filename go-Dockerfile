@@ -10,29 +10,12 @@ ENV APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE=1
 ####################
 RUN apt-get update -q \
     && apt-get install -y \
-        openbox tint2 \
+        openbox tint2 pcmanfm supervisor wget gosu git sudo python3-pip dbus libsecret-1-0 libgbm1 \
     && apt-get autoclean \
     && apt-get autoremove \
     && rm -rf /var/lib/apt/lists/*
+  
 
-####################
-# Install filemanager and terminal
-####################
-RUN apt-get update \
-    && apt-get install -y pcmanfm \
-    && apt-get autoclean \
-    && apt-get autoremove \
-    && rm -rf /var/lib/apt/lists/*   
-
-####################
-# Add Package
-####################
-RUN apt-get update \
-    && apt-get install -y \
-        supervisor wget gosu git sudo python3-pip \
-    && apt-get autoclean \
-    && apt-get autoremove \
-    && rm -rf /var/lib/apt/lists*
     
 ####################
 # Install TurboVNC and Dependencies
@@ -46,11 +29,7 @@ RUN apt-get update \
     && apt-get install -f -y \
     && rm -rf turbovnc.deb
 
-##
-RUN apt-get update \
-    && apt-get install -y dbus libsecret-1-0 libgbm1 \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
+
 
 ####################
 # Add User
