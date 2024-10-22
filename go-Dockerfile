@@ -82,7 +82,8 @@ RUN wget https://dl.gologin.com/gologin.tar -P /home/ubuntu/Desktop/ \
     && echo '/home/ubuntu/start_gologin.sh &' > /home/ubuntu/.config/openbox/autostart \
     && chown -R ubuntu:ubuntu /home/ubuntu/.config
 
-
+# Create the autostart file for Openbox
+RUN echo "tint2 &" > /home/$USER/.config/openbox/autostart
 
 ####################
 # noVNC and Websockify
