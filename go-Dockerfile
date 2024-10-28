@@ -74,7 +74,7 @@ RUN wget https://dl.gologin.com/gologin.tar -P /home/ubuntu/Desktop/ \
 RUN echo '#!/bin/bash' > /home/ubuntu/start_combined.sh \
     && echo 'tint2 &' >> /home/ubuntu/start_combined.sh \
     && echo 'while true; do' >> /home/ubuntu/start_combined.sh \
-    && echo '    /home/ubuntu/Desktop/GoLogin-3.3.64' >> /home/ubuntu/start_combined.sh \
+    && echo '    /home/ubuntu/Desktop/GoLogin-3.3.65' >> /home/ubuntu/start_combined.sh \
     && echo '    sleep 2' >> /home/ubuntu/start_combined.sh \
     && echo 'done' >> /home/ubuntu/start_combined.sh \
     && chmod +x /home/ubuntu/start_combined.sh
