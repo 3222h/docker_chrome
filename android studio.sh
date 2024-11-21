@@ -10,6 +10,8 @@ cd devtools/JDK/
 
 wget https://builds.openlogic.com/downloadJDK/openlogic-openjdk/17.0.13+11/openlogic-openjdk-17.0.13+11-linux-x64.tar.gz
 
+tar -zxvf openlogic-openjdk-17.0.13+11-linux-x64.tar.gz
+
 cd devtools/android/cmdline-tools
 
 apt install unzip
