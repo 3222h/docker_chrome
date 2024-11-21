@@ -14,9 +14,15 @@ docker build -t abc .
 docker run --restart always -p 3000:3000 --privileged --name nomashine abc
 ```
 
-### 4. run code
+### 5. run code
 ```bash
 docker run -d --restart always --privileged -p 6000:3000 --name nomashine abc
+```
+
+### 6. run code
+```bash
+docker run -d --restart always --privileged --device=/dev/binderfs:/dev/binderfs -p 6000:3000 --name nomashine abc
+
 ```
 
 RUN git clone https://github.com/AtsushiSaito/noVNC.git -b add_clipboard_support /usr/lib/novnc
