@@ -17,7 +17,7 @@ RUN apt-get update -q \
 ####################
 RUN apt-get update -q \
     && apt-get install -y \
-        openbox tint2 unzip nano libxcb-cursor0 libxcb1 openjdk-17-jdk libx11-xcb1 libxcb-xinerama0 libxcb-glx0 libxcb-render0 libxcb-shm0 \
+        openbox tint2 unzip nano libxcb-cursor0 libpulse0 libxcb1 openjdk-17-jdk libx11-xcb1 libxcb-xinerama0 libxcb-glx0 libxcb-render0 libxcb-shm0 \
     && apt-get autoclean \
     && apt-get autoremove \
     && rm -rf /var/lib/apt/lists/*
