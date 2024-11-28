@@ -21,7 +21,7 @@ docker run -d --restart always --privileged -p 6000:3000 --name nomashine abc
 
 ### 6. run code
 ```bash
-docker run -d --restart always --privileged --device=/dev/binderfs:/dev/binderfs -p 6000:3000 --name nomashine abc
+docker run -d --restart always --privileged --device=/dev/kvm -p 6000:3000 --name nomashine a35377/emu:base
 
 ```
 
